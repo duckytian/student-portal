@@ -1,0 +1,1351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CVSU Tanza – Student Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-900: #0d2b10;
+    --green-800: #163d1a;
+    --green-700: #1e5424;
+    --green-600: #266b2e;
+    --green-500: #2e8236;
+    --green-400: #3a9e44;
+    --green-200: #a8d9ac;
+    --green-100: #d4edd6;
+    --green-50:  #edf7ee;
+    --accent:    #2e8236;
+    --sidebar-bg: #1a3d1e;
+    --sidebar-text: #c8e6cb;
+    --sidebar-active-bg: #2e5c32;
+    --sidebar-active-text: #ffffff;
+    --topbar-height: 58px;
+    --sidebar-width: 230px;
+    --bg: #f4f6f4;
+    --card: #ffffff;
+    --border: #e2e8e2;
+    --text: #1a2e1b;
+    --muted: #6b7c6c;
+    --badge-green-bg: #e6f4e7;
+    --badge-green-text: #1e6624;
+    --badge-orange-bg: #fff3e0;
+    --badge-orange-text: #b45309;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,.07);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--green-500);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg { width: 20px; height: 20px; fill: #fff; }
+
+  .logo-text { line-height: 1.2; }
+  .logo-text .school { font-size: 14px; font-weight: 600; color: #fff; letter-spacing: .3px; }
+  .logo-text .sub { font-size: 11px; color: var(--green-200); }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(200,230,203,.5);
+    text-transform: uppercase;
+    padding: 16px 20px 6px;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav-link svg { width: 18px; height: 18px; flex-shrink: 0; opacity: .8; }
+
+  .nav-link:hover { background: rgba(255,255,255,.07); color: #fff; }
+
+  .nav-link.active {
+    background: var(--sidebar-active-bg);
+    color: var(--sidebar-active-text);
+    font-weight: 500;
+  }
+
+  .nav-link.active svg { opacity: 1; }
+
+  .sidebar-spacer { flex: 1; }
+
+  .nav-link.logout { color: #f8a5a5; margin-bottom: 8px; }
+  .nav-link.logout:hover { background: rgba(248,100,100,.12); color: #fca5a5; }
+
+  /* ── Main ── */
+  .main {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* ── Topbar ── */
+  .topbar {
+    height: var(--topbar-height);
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .search-bar {
+    flex: 1;
+    max-width: 380px;
+    position: relative;
+  }
+
+  .search-bar input {
+    width: 100%;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 14px 0 36px;
+    font-size: 13.5px;
+    font-family: inherit;
+    color: var(--text);
+    background: var(--bg);
+    outline: none;
+  }
+
+  .search-bar input:focus { border-color: var(--green-400); }
+
+  .search-bar svg {
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-50%);
+    width: 16px; height: 16px;
+    color: var(--muted);
+  }
+
+  .topbar-spacer { flex: 1; }
+
+  .notif-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .notif-btn svg { width: 18px; height: 18px; color: var(--muted); }
+
+  .notif-dot {
+    width: 8px; height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    position: absolute;
+    top: 4px; right: 4px;
+    border: 1.5px solid #fff;
+  }
+
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--green-700);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    letter-spacing: .5px;
+  }
+
+  /* ── Content ── */
+  .content {
+    padding: 32px 36px 48px;
+    flex: 1;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Page Header ── */
+  .page-header { margin-bottom: 24px; }
+  .page-header h1 {
+    font-size: 22px; font-weight: 600;
+    display: flex; align-items: center; gap: 9px;
+    color: var(--text);
+  }
+
+  .page-header h1 svg { width: 22px; height: 22px; color: var(--accent); }
+  .page-header p { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ── Semester badge ── */
+  .sem-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--badge-green-bg);
+    color: var(--badge-green-text);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  /* ═══════════════════════════════════
+     PAGE 1 – REGISTRATION
+  ═══════════════════════════════════ */
+  .reg-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
+
+  .subjects-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .subjects-header h2 { font-size: 15px; font-weight: 600; }
+
+  .info-banner {
+    margin: 14px 16px;
+    background: #e8f4fd;
+    border: 1px solid #b3d9f5;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #1a5a85;
+    display: flex; gap: 9px;
+  }
+
+  .info-banner svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .subject-list { padding: 6px 16px 10px; }
+
+  .subject-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    transition: border-color .15s;
+  }
+
+  .subject-row:hover { border-color: var(--green-400); }
+
+  .subject-row input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .subject-info { flex: 1; }
+  .subject-info .code { font-size: 14.5px; font-weight: 600; }
+  .subject-info .name { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+
+  .subject-units { text-align: right; }
+  .subject-units .units { font-size: 14px; font-weight: 600; color: var(--accent); }
+  .subject-units .type { font-size: 11.5px; color: var(--muted); }
+
+  .add-subject-btn {
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    width: calc(100% - 32px);
+    margin: 4px 16px 16px;
+    padding: 11px;
+    border: 1.5px dashed var(--border);
+    border-radius: 8px;
+    background: none;
+    color: var(--muted);
+    font-size: 13.5px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+
+  .add-subject-btn:hover { border-color: var(--green-400); color: var(--accent); }
+
+  /* Summary sidebar */
+  .summary-card { padding: 20px; }
+  .summary-card h2 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+
+  .summary-row {
+    display: flex; justify-content: space-between;
+    font-size: 13.5px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-row:last-of-type { border-bottom: none; }
+  .summary-row .label { color: var(--muted); }
+  .summary-row .value { font-weight: 500; }
+
+  .summary-total {
+    display: flex; justify-content: space-between;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 8px;
+    padding-top: 10px;
+    border-top: 2px solid var(--border);
+  }
+
+  .cert-row {
+    display: flex; gap: 9px;
+    margin: 16px 0;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .cert-row input { margin-top: 2px; accent-color: var(--accent); flex-shrink: 0; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--green-800);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .15s;
+  }
+
+  .submit-btn:hover { background: var(--green-700); }
+
+  /* ═══════════════════════════════════
+     PAGE 2 – SCHEDULE
+  ═══════════════════════════════════ */
+  .schedule-toprow {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .week-nav {
+    display: flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 12px;
+    background: #fff;
+    font-size: 13.5px;
+    font-weight: 500;
+  }
+
+  .week-nav button {
+    border: none; background: none; cursor: pointer;
+    color: var(--muted); padding: 0 4px; font-size: 16px;
+  }
+
+  .week-nav button:hover { color: var(--accent); }
+
+  .sched-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+
+  .day-col h3 {
+    font-size: 13px; font-weight: 600; text-align: center;
+    padding: 10px 0; color: var(--muted);
+  }
+
+  .class-card {
+    border-radius: 8px;
+    padding: 11px 12px;
+    font-size: 12px;
+    margin-bottom: 8px;
+    border-left: 3px solid;
+  }
+
+  .class-card.lecture {
+    background: #e8f4e9; border-left-color: var(--green-500);
+  }
+
+  .class-card.lab {
+    background: #e8f0fb; border-left-color: #4a82d8;
+  }
+
+  .class-card.pe {
+    background: #fff7e6; border-left-color: #d97706;
+  }
+
+  .class-card .time { font-size: 11px; color: var(--muted); margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
+  .class-card .time svg { width: 12px; height: 12px; }
+  .class-card .code { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .class-card .subj-name { color: var(--muted); margin-bottom: 6px; line-height: 1.3; }
+  .class-card .meta { display: flex; flex-direction: column; gap: 2px; }
+  .class-card .meta span { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: 11px; }
+  .class-card .meta svg { width: 11px; height: 11px; }
+
+  .no-class { text-align: center; padding: 28px 0; color: var(--muted); font-size: 12.5px; }
+
+  .legend { display: flex; gap: 20px; margin-top: 16px; padding: 12px 16px; background: #fff; border: 1px solid var(--border); border-radius: 8px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-dot.l { background: var(--green-500); }
+  .legend-dot.lb { background: #4a82d8; }
+  .legend-dot.pe { background: #d97706; }
+
+  /* ═══════════════════════════════════
+     PAGE 3 – COURSES
+  ═══════════════════════════════════ */
+  .courses-header-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px;
+  }
+
+  .dl-btn {
+    display: flex; align-items: center; gap: 7px;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--text);
+    transition: border-color .15s;
+  }
+
+  .dl-btn:hover { border-color: var(--green-400); color: var(--accent); }
+  .dl-btn svg { width: 16px; height: 16px; }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  .course-card { overflow: hidden; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+  .course-banner {
+    height: 86px;
+    background: linear-gradient(135deg, var(--green-700) 0%, var(--green-500) 100%);
+    position: relative;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 12px 14px;
+  }
+
+  .course-units-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(0,0,0,.28);
+    color: #fff; font-size: 11px; font-weight: 500;
+    padding: 3px 9px; border-radius: 20px;
+  }
+
+  .course-code { font-size: 18px; font-weight: 700; color: #fff; }
+
+  .course-body { padding: 14px; background: #fff; }
+  .course-body .course-title { font-size: 13.5px; font-weight: 500; margin-bottom: 10px; line-height: 1.4; }
+
+  .course-meta { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .course-meta span { display: block; margin-bottom: 2px; }
+  .course-meta .meta-label { font-size: 11px; }
+
+  .progress-bar-wrap { height: 5px; background: var(--green-100); border-radius: 3px; margin-bottom: 14px; }
+  .progress-bar-fill { height: 100%; background: var(--green-500); border-radius: 3px; }
+
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 11.5px; color: var(--muted); margin-bottom: 6px;
+  }
+
+  .course-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .btn-syllabus {
+    padding: 8px;
+    border: 1px solid var(--border);
+    background: none;
+    border-radius: 7px;
+    font-size: 12.5px;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    color: var(--text);
+    transition: border-color .15s;
+  }
+
+  .btn-syllabus:hover { border-color: var(--green-400); color: var(--accent); }
+
+  .btn-lms {
+    padding: 8px;
+    border: none;
+    background: var(--green-800);
+    border-radius: 7px;
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
+    color: #fff;
+    transition: background .15s;
+  }
+
+  .btn-lms:hover { background: var(--green-700); }
+  .btn-lms svg, .btn-syllabus svg { width: 13px; height: 13px; }
+
+  .curriculum-banner {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--green-50);
+    border: 1px solid var(--green-100);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+
+  .curriculum-banner svg.big { width: 28px; height: 28px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+  .curriculum-banner h3 { font-size: 14.5px; font-weight: 600; margin-bottom: 4px; }
+  .curriculum-banner p { font-size: 13px; color: var(--muted); }
+  .curriculum-banner a { font-size: 13px; color: var(--accent); font-weight: 500; text-decoration: none; margin-top: 8px; display: inline-flex; align-items: center; gap: 4px; }
+  .curriculum-banner a:hover { text-decoration: underline; }
+  .curriculum-banner a svg { width: 14px; height: 14px; }
+
+  /* ═══════════════════════════════════
+     PAGE 4 – GRADES
+  ═══════════════════════════════════ */
+  .grades-header-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .sem-block { margin-bottom: 22px; }
+
+  .sem-block-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sem-block-header h2 { font-size: 14.5px; font-weight: 600; }
+
+  .gwa-badge {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 500; color: var(--badge-green-text);
+  }
+
+  .gwa-badge span { font-weight: 700; font-size: 14px; }
+
+  .grades-table { width: 100%; border-collapse: collapse; }
+
+  .grades-table thead tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .grades-table th {
+    text-align: left; font-size: 12px; font-weight: 500;
+    color: var(--muted); padding: 10px 20px;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+
+  .grades-table td {
+    padding: 13px 20px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .grades-table tr:last-child td { border-bottom: none; }
+
+  .grades-table .bold { font-weight: 600; }
+
+  .grade-pill {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .grade-pill.passed { background: var(--badge-green-bg); color: var(--badge-green-text); }
+  .grade-pill.inc { background: var(--badge-orange-bg); color: var(--badge-orange-text); }
+
+  /* ═══════════════════════════════════
+     PAGE 5 – APPOINTMENTS
+  ═══════════════════════════════════ */
+  .appt-header-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .book-btn {
+    display: flex; align-items: center; gap: 7px;
+    padding: 10px 18px;
+    background: var(--green-800);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .15s;
+  }
+
+  .book-btn:hover { background: var(--green-700); }
+  .book-btn svg { width: 16px; height: 16px; }
+
+  .appt-section-title {
+    font-size: 14px; font-weight: 600;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .appt-item {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px;
+  }
+
+  .appt-item:last-child { border-bottom: none; }
+
+  .appt-left { flex: 1; }
+
+  .appt-status-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+
+  .status-pill {
+    font-size: 11.5px; font-weight: 600;
+    padding: 3px 10px; border-radius: 20px;
+  }
+
+  .status-pill.confirmed { background: var(--badge-green-bg); color: var(--badge-green-text); }
+  .status-pill.pending { background: var(--badge-orange-bg); color: var(--badge-orange-text); }
+
+  .apt-code { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+  .appt-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .appt-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+
+  .appt-details { display: flex; gap: 16px; flex-wrap: wrap; }
+  .appt-details span {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12.5px; color: var(--muted);
+  }
+
+  .appt-details svg { width: 14px; height: 14px; }
+
+  .appt-actions { display: flex; flex-direction: column; gap: 7px; align-items: flex-end; }
+
+  .btn-details {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: none;
+    font-size: 12.5px;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    color: var(--text);
+    transition: border-color .15s;
+  }
+
+  .btn-details:hover { border-color: var(--green-400); color: var(--accent); }
+
+  .btn-cancel {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 14px;
+    border: 1px solid #fecaca;
+    border-radius: 7px;
+    background: none;
+    color: #dc2626;
+    font-size: 12.5px;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background .15s;
+  }
+
+  .btn-cancel:hover { background: #fff5f5; }
+  .btn-details svg, .btn-cancel svg { width: 14px; height: 14px; }
+
+  /* help button */
+  .help-fab {
+    position: fixed; bottom: 24px; right: 24px;
+    width: 38px; height: 38px;
+    background: var(--green-800);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+    display: flex; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 3L2 8l10 5 10-5-10-5zM2 16l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="logo-text">
+      <div class="school">CVSU TANZA</div>
+      <div class="sub">Student Portal</div>
+    </div>
+  </div>
+
+  
+
+  <button class="nav-link" onclick="showPage('registration')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
+    Registration
+  </button>
+
+  <button class="nav-link" onclick="showPage('schedule')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Schedule
+  </button>
+
+  <button class="nav-link" onclick="showPage('courses')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V6a2 2 0 012-2h13a1 1 0 011 1v13"/><path d="M4 19a2 2 0 002 2h14M8 10h8M8 14h5"/></svg>
+    Courses
+  </button>
+
+  <button class="nav-link" onclick="showPage('grades')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Grades
+  </button>
+
+  <button class="nav-link" onclick="showPage('appointments')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+    Appointments
+  </button>
+
+  <div class="sidebar-spacer"></div>
+
+<button class="nav-link logout" onclick="window.location.href='pages/login.html'">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+    <polyline points="16 17 21 12 16 7"/>
+    <line x1="21" y1="12" x2="9" y2="12"/>
+  </svg>
+  Log Out
+</button>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="search-bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search resources, grades, announcements..."/>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="notif-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      <div class="notif-dot"></div>
+    </div>
+    <div class="avatar">JD</div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ══════════════════════ PAGE: REGISTRATION ══════════════════════ -->
+    <div id="page-registration" class="page active">
+      <div class="page-header">
+        <h1>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
+          Enrollment Registration
+        </h1>
+        <p>Register for the upcoming semester</p>
+      </div>
+
+      <div class="reg-layout">
+        <div class="card">
+          <div class="subjects-header">
+            <h2>Available Subjects</h2>
+            <span class="sem-badge">2nd Semester, A.Y. 2023-2024</span>
+          </div>
+
+          <div class="info-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Based on your curriculum, these are the pre-advised subjects for your current year level. You may add or remove subjects before submitting to your adviser.
+          </div>
+
+          <div class="subject-list">
+            <div class="subject-row">
+              <input type="checkbox" checked/>
+              <div class="subject-info">
+                <div class="code">ITEC 60</div>
+                <div class="name">Mobile Application Development</div>
+              </div>
+              <div class="subject-units">
+                <div class="units">3 Units</div>
+                <div class="type">Lec/Lab</div>
+              </div>
+            </div>
+            <div class="subject-row">
+              <input type="checkbox" checked/>
+              <div class="subject-info">
+                <div class="code">ITEC 65</div>
+                <div class="name">Cloud Computing</div>
+              </div>
+              <div class="subject-units">
+                <div class="units">3 Units</div>
+                <div class="type">Lec/Lab</div>
+              </div>
+            </div>
+            <div class="subject-row">
+              <input type="checkbox" checked/>
+              <div class="subject-info">
+                <div class="code">ITEC 70</div>
+                <div class="name">Capstone Project 1</div>
+              </div>
+              <div class="subject-units">
+                <div class="units">3 Units</div>
+                <div class="type">Lec/Lab</div>
+              </div>
+            </div>
+            <div class="subject-row">
+              <input type="checkbox" checked/>
+              <div class="subject-info">
+                <div class="code">GNED 05</div>
+                <div class="name">Purposive Communication</div>
+              </div>
+              <div class="subject-units">
+                <div class="units">3 Units</div>
+                <div class="type">Lec</div>
+              </div>
+            </div>
+            <div class="subject-row">
+              <input type="checkbox" checked/>
+              <div class="subject-info">
+                <div class="code">GNED 08</div>
+                <div class="name">Understanding the Self</div>
+              </div>
+              <div class="subject-units">
+                <div class="units">3 Units</div>
+                <div class="type">Lec</div>
+              </div>
+            </div>
+            <div class="subject-row">
+              <input type="checkbox" checked/>
+              <div class="subject-info">
+                <div class="code">CVSU 101</div>
+                <div class="name">Institutional Requirement</div>
+              </div>
+              <div class="subject-units">
+                <div class="units">3 Units</div>
+                <div class="type">Lec</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="add-subject-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            Add Another Subject
+          </button>
+        </div>
+
+        <!-- Summary -->
+        <div>
+          <div class="card summary-card">
+            <h2>Registration Summary</h2>
+            <div class="summary-row"><span class="label">Student Type</span><span class="value">Regular</span></div>
+            <div class="summary-row"><span class="label">Year Level</span><span class="value">3rd Year</span></div>
+            <div class="summary-row"><span class="label">Total Subjects</span><span class="value">6</span></div>
+            <div class="summary-total"><span>Total Units</span><span>18</span></div>
+            <div class="cert-row">
+              <input type="checkbox" />
+              I certify that the information above is true and correct. I understand that submitting this form sends it to my academic adviser for evaluation.
+            </div>
+            <button class="submit-btn">Submit for Advising</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ PAGE: SCHEDULE ══════════════════════ -->
+    <div id="page-schedule" class="page">
+      <div class="page-header">
+        <h1>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Class Schedule
+        </h1>
+        <p>1st Semester, A.Y. 2023-2024</p>
+      </div>
+
+      <div class="schedule-toprow">
+        <div></div>
+        <div class="week-nav">
+          <button>&#8249;</button>
+          October 9 – 14, 2023
+          <button>&#8250;</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:18px 20px 16px;">
+        <div class="sched-grid">
+          <!-- MON -->
+          <div class="day-col">
+            <h3>Monday</h3>
+            <div class="class-card lab">
+              <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 08:00 AM – 10:00 AM</div>
+              <div class="code">ITEC 50</div>
+              <div class="subj-name">Web Systems</div>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 1</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. A. Santos</span>
+              </div>
+            </div>
+            <div class="class-card lab">
+              <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 01:00 PM – 04:00 PM</div>
+              <div class="code">ITEC 50</div>
+              <div class="subj-name">Web Systems</div>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 1</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. A. Santos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TUE -->
+          <div class="day-col">
+            <h3>Tuesday</h3>
+            <div class="class-card lecture">
+              <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 09:00 AM – 12:00 PM</div>
+              <div class="code">ITEC 55</div>
+              <div class="subj-name">Information Assurance</div>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Room 304</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Engr. B. Reyes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- WED -->
+          <div class="day-col">
+            <h3>Wednesday</h3>
+            <div class="class-card lecture">
+              <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 08:00 AM – 10:00 AM</div>
+              <div class="code">GNED 04</div>
+              <div class="subj-name">Mathematics in Modern World</div>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Room 201</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Dr. C. Cruz</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- THU -->
+          <div class="day-col">
+            <h3>Thursday</h3>
+            <div class="class-card lab">
+              <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 01:00 PM – 04:00 PM</div>
+              <div class="code">DCIT 25</div>
+              <div class="subj-name">Data Structures</div>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 2</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. D. Lim</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- FRI -->
+          <div class="day-col">
+            <h3>Friday</h3>
+            <div class="class-card pe">
+              <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 10:00 AM – 12:00 PM</div>
+              <div class="code">FITT 03</div>
+              <div class="subj-name">Individual/Dual Sports</div>
+              <div class="meta">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Gymnasium</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Coach E. Ramos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAT -->
+          <div class="day-col">
+            <h3>Saturday</h3>
+            <div class="no-class">No classes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot l"></div> Lecture</div>
+        <div class="legend-item"><div class="legend-dot lb"></div> Laboratory</div>
+        <div class="legend-item"><div class="legend-dot pe"></div> P.E. / Activity</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ PAGE: COURSES ══════════════════════ -->
+    <div id="page-courses" class="page">
+      <div class="courses-header-row">
+        <div class="page-header" style="margin-bottom:0">
+          <h1>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V6a2 2 0 012-2h13a1 1 0 011 1v13"/><path d="M4 19a2 2 0 002 2h14M8 10h8M8 14h5"/></svg>
+            My Courses
+          </h1>
+          <p>Course materials and syllabi for the current semester</p>
+        </div>
+        <button class="dl-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Prospectus
+        </button>
+      </div>
+
+      <div class="courses-grid" style="margin-top:20px;">
+        <!-- ITEC 50 -->
+        <div class="course-card">
+          <div class="course-banner">
+            <span class="course-units-badge">3 Units</span>
+            <div class="course-code">ITEC 50</div>
+          </div>
+          <div class="course-body">
+            <div class="course-title">Web Systems and Technologies</div>
+            <div class="course-meta">
+              <span class="meta-label">Instructor</span>
+              <span>Prof. A. Santos</span>
+            </div>
+            <div class="progress-label"><span>Course Progress</span><span>65%</span></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:65%"></div></div>
+            <div class="course-actions">
+              <button class="btn-syllabus">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Syllabus
+              </button>
+              <button class="btn-lms">
+                LMS
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ITEC 55 -->
+        <div class="course-card">
+          <div class="course-banner">
+            <span class="course-units-badge">3 Units</span>
+            <div class="course-code">ITEC 55</div>
+          </div>
+          <div class="course-body">
+            <div class="course-title">Information Assurance and Security</div>
+            <div class="course-meta">
+              <span class="meta-label">Instructor</span>
+              <span>Engr. B. Reyes</span>
+            </div>
+            <div class="progress-label"><span>Course Progress</span><span>40%</span></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:40%"></div></div>
+            <div class="course-actions">
+              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
+              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DCIT 25 -->
+        <div class="course-card">
+          <div class="course-banner">
+            <span class="course-units-badge">3 Units</span>
+            <div class="course-code">DCIT 25</div>
+          </div>
+          <div class="course-body">
+            <div class="course-title">Data Structures and Algorithms</div>
+            <div class="course-meta">
+              <span class="meta-label">Instructor</span>
+              <span>Prof. D. Lim</span>
+            </div>
+            <div class="progress-label"><span>Course Progress</span><span>80%</span></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:80%"></div></div>
+            <div class="course-actions">
+              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
+              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- GNED 04 -->
+        <div class="course-card">
+          <div class="course-banner">
+            <span class="course-units-badge">3 Units</span>
+            <div class="course-code">GNED 04</div>
+          </div>
+          <div class="course-body">
+            <div class="course-title">Mathematics in the Modern World</div>
+            <div class="course-meta">
+              <span class="meta-label">Instructor</span>
+              <span>Dr. C. Cruz</span>
+            </div>
+            <div class="progress-label"><span>Course Progress</span><span>100%</span></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%"></div></div>
+            <div class="course-actions">
+              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
+              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- FITT 03 -->
+        <div class="course-card">
+          <div class="course-banner">
+            <span class="course-units-badge">2 Units</span>
+            <div class="course-code">FITT 03</div>
+          </div>
+          <div class="course-body">
+            <div class="course-title">Physical Activities towards Health and Fitness</div>
+            <div class="course-meta">
+              <span class="meta-label">Instructor</span>
+              <span>Coach E. Ramos</span>
+            </div>
+            <div class="progress-label"><span>Course Progress</span><span>50%</span></div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:50%"></div></div>
+            <div class="course-actions">
+              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
+              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="curriculum-banner">
+        <svg class="big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V6a2 2 0 012-2h13a1 1 0 011 1v13"/><path d="M4 19a2 2 0 002 2h14M8 10h8M8 14h5"/></svg>
+        <div>
+          <h3>Looking for your Curriculum Checklist?</h3>
+          <p>View your complete program prospectus to see your remaining subjects and prerequisites for graduation.</p>
+          <a href="#">View Curriculum Checklist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ PAGE: GRADES ══════════════════════ -->
+    <div id="page-grades" class="page">
+      <div class="grades-header-row">
+        <div class="page-header" style="margin-bottom:0">
+          <h1>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Academic Records
+          </h1>
+          <p>View your grades and academic performance</p>
+        </div>
+        <button class="dl-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Unofficial Transcript
+        </button>
+      </div>
+
+      <!-- Semester 1 -->
+      <div class="card sem-block" style="margin-top:20px;">
+        <div class="sem-block-header">
+          <h2>First Semester, A.Y. 2023-2024</h2>
+          <div class="gwa-badge">GWA: <span>1.25</span></div>
+        </div>
+        <table class="grades-table">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Description</th>
+              <th>Units</th>
+              <th>Grade</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="bold">ITEC 50</td><td>Web Systems and Technologies</td><td>3.0</td><td class="bold">1.25</td><td><span class="grade-pill passed">Passed</span></td></tr>
+            <tr><td class="bold">ITEC 55</td><td>Information Assurance and Security</td><td>3.0</td><td class="bold">1.50</td><td><span class="grade-pill passed">Passed</span></td></tr>
+            <tr><td class="bold">DCIT 25</td><td>Data Structures and Algorithms</td><td>3.0</td><td class="bold">1.00</td><td><span class="grade-pill passed">Passed</span></td></tr>
+            <tr><td class="bold">GNED 04</td><td>Mathematics in the Modern World</td><td>3.0</td><td class="bold">1.25</td><td><span class="grade-pill passed">Passed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Semester 2 -->
+      <div class="card sem-block">
+        <div class="sem-block-header">
+          <h2>Second Semester, A.Y. 2022-2023</h2>
+          <div class="gwa-badge">GWA: <span>1.45</span></div>
+        </div>
+        <table class="grades-table">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Description</th>
+              <th>Units</th>
+              <th>Grade</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="bold">ITEC 50</td><td>Programming 2</td><td>3.0</td><td class="bold">1.50</td><td><span class="grade-pill passed">Passed</span></td></tr>
+            <tr><td class="bold">GNED 01</td><td>Art Appreciation</td><td>3.0</td><td class="bold">1.25</td><td><span class="grade-pill passed">Passed</span></td></tr>
+            <tr><td class="bold">FITT 02</td><td>Fitness Exercises</td><td>2.0</td><td class="bold">1.00</td><td><span class="grade-pill passed">Passed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ PAGE: APPOINTMENTS ══════════════════════ -->
+    <div id="page-appointments" class="page">
+      <div class="appt-header-row">
+        <div class="page-header" style="margin-bottom:0">
+          <h1>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+            Appointments
+          </h1>
+          <p>Schedule and manage your campus visits</p>
+        </div>
+        <button class="book-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Book Appointment
+        </button>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <div class="appt-section-title">Upcoming Appointments</div>
+
+        <div class="appt-item">
+          <div class="appt-left">
+            <div class="appt-status-row">
+              <span class="status-pill confirmed">Confirmed</span>
+              <span class="apt-code">APT-001</span>
+            </div>
+            <div class="appt-title">University Registrar</div>
+            <div class="appt-subtitle">Claiming of Transcript of Records</div>
+            <div class="appt-details">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                Oct 15, 2023
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                10:00 AM – 11:00 AM
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Admin Building, Window 3
+              </span>
+            </div>
+          </div>
+          <div class="appt-actions">
+            <button class="btn-details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Details
+            </button>
+            <button class="btn-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <div class="appt-item">
+          <div class="appt-left">
+            <div class="appt-status-row">
+              <span class="status-pill pending">Pending</span>
+              <span class="apt-code">APT-002</span>
+            </div>
+            <div class="appt-title">University Clinic</div>
+            <div class="appt-subtitle">Medical Clearance Validation</div>
+            <div class="appt-details">
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                Oct 18, 2023
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                01:30 PM – 02:00 PM
+              </span>
+              <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Student Services Building, 1st Floor
+              </span>
+            </div>
+          </div>
+          <div class="appt-actions">
+            <button class="btn-details">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Details
+            </button>
+            <button class="btn-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+<div>
+
+</div>
+<button class="help-fab" title="Help">?</button>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(n => {
+      if (n.textContent.trim().toLowerCase() === name) n.classList.add('active');
+    });
+  }
+
+  // Set initial active nav
+  document.querySelector('.nav-link').classList.add('active');
+</script>
+</body>
+</html>

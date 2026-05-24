@@ -1,0 +1,134 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* BACKGROUND IMAGE */
+      background: url('../images/campuses.png') center center / cover no-repeat fixed;
+      position: relative;
+    }
+
+    /* GREEN TRANSPARENCY OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 74, 46, 0.65); /* Green with 65% transparency */
+      z-index: 0;
+    }
+
+    .activation-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 30px 35px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      width: 450px;
+      max-width: 90%;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .activation-container h2 {
+      margin-bottom: 5px;
+      color: #1a4a2e;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .activation-container p {
+      font-size: 14px;
+      color: #4e6e5c;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    form label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      font-size: 12px;
+      color: #2b533f;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 5px;
+      border: 1.5px solid #d0e2d7;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #2d6a44;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(45, 106, 68, 0.1);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    button.cancel {
+      background: rgba(200, 200, 200, 0.5);
+      color: #4e6e5c;
+      border: 1px solid #c5d8cd;
+    }
+
+    button.cancel:hover {
+      background: rgba(200, 200, 200, 0.7);
+      transform: translateY(-2px);
+    }
+
+    button.activate {
+      background: linear-gradient(135deg, #2d6a44, #1a4a2e);
+      color: white;
+      box-shadow: 0 4px 12px rgba(26, 74, 46, 0.3);
+    }
+
+    button.activate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(26, 74, 46, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .activation-container {
+        padding: 20px;
+      }
+      .buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }

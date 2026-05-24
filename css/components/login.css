@@ -190,6 +190,57 @@ label {
   color: #5d8a72;
 }
 
+
+.btn-login {
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #2d6a44 0%, #1a4a2e 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(26, 74, 46, 0.35);
+}
+
+.btn-login:hover {
+  background: linear-gradient(135deg, #3d8b5e 0%, #236e47 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(26, 74, 46, 0.45);
+}
+
+.btn-login:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(26, 74, 46, 0.3);
+}
+
+/* Account Activation Link */
+.link-account {
+  display: block;
+  text-align: right;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #2d6a44;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: all 0.2s;
+}
+
+.link-account:hover {
+  color: #1a4a2e;
+  opacity: 0.8;
+}
+
 /* Responsive */
 @media (max-width: 680px) {
   .card-left {
@@ -202,3 +253,4 @@ label {
     max-width: 88vw;
   }
 }
+
