@@ -1,0 +1,17 @@
+:root {
+  --green-dark: #1a4a2e;
+  --green-mid: #2d6a44;
+  --green-light: #3d8b5e;
+  --green-soft: #5cb885;
+  --green-glass: rgba(26, 74, 46, 0.65);
+  --white-glass: rgba(255, 255, 255, 0.92);
+  --white: #ffffff;
+  --off-white: #f4f7f5;
+  --text-dark: #1d392a;
+  --text-soft: #4e6e5c;
+  --gold: #d4a017;
+  --shadow-card: 0 32px 80px rgba(0, 0, 0, 0.45);
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --radius-card: 28px;
+}

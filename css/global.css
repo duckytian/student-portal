@@ -1,0 +1,29 @@
+@import url('variables.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-sans);
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(rgba(26, 74, 46, 0.5), rgba(26, 74, 46, 0.5)), url('../images/campus.png') center center / cover no-repeat fixed;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--overlay-dark) 0%, var(--green-glass-light) 45%, rgba(8, 28, 16, 0.7) 100%);
+  z-index: 0;
+}
