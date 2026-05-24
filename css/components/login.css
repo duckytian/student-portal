@@ -52,12 +52,13 @@
 
 .welcome-title {
   font-family: var(--font-serif);
-  font-size: 2.8rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: white;
   line-height: 1.2;
   margin-bottom: 20px;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: center
 }
 
 .welcome-divider {
@@ -74,6 +75,7 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
+  text-align: center
 }
 
 .welcome-text {
@@ -81,9 +83,9 @@
   color: rgba(255, 255, 255, 0.85);
   font-weight: 400;
   letter-spacing: 0.3px;
-  border-left: 3px solid #5cb885;
   padding-left: 12px;
   transition: all 0.3s;
+  text-align: center
 }
 
 .welcome-text:hover {
@@ -92,12 +94,6 @@
   transform: translateX(5px);
 }
 
-.university-motto {
-  margin-top: 36px;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 400;
-}
 
 /* Logo */
 .logo-wrapper {

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -251,6 +250,292 @@
   }
 
   /* ═══════════════════════════════════
+     PAGE 0 – DASHBOARD
+  ═══════════════════════════════════ */
+  .welcome-banner {
+    background: linear-gradient(135deg, #1a3d1e 0%, #2e8236 60%, #3a9e44 100%);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+
+  .welcome-banner::after {
+    content: '';
+    position: absolute;
+    right: -20px; top: -30px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,.06);
+    border-radius: 50%;
+  }
+
+  .welcome-banner::before {
+    content: '';
+    position: absolute;
+    right: 60px; top: 20px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,.04);
+    border-radius: 50%;
+  }
+
+  .welcome-banner h2 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+  .welcome-banner p { font-size: 14px; opacity: .82; }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  /* Today's Schedule card */
+  .schedule-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .schedule-card-header h3 {
+    font-size: 15px; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .schedule-card-header h3 svg { width: 17px; height: 17px; color: var(--accent); }
+
+  .day-badge {
+    font-size: 12px; color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+  }
+
+  .sched-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sched-item:last-child { border-bottom: none; }
+
+  .sched-time {
+    font-size: 12px; color: var(--muted);
+    display: flex; align-items: center; gap: 5px;
+    min-width: 130px; margin-top: 2px;
+    white-space: nowrap;
+  }
+
+  .sched-time svg { width: 13px; height: 13px; }
+
+  .sched-info .sched-subj { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .sched-info .sched-meta { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+
+  .sched-type {
+    font-size: 11.5px; font-weight: 500;
+    padding: 2px 8px; border-radius: 20px;
+  }
+
+  .sched-type.lec { background: #e8f4e9; color: #1e6624; }
+  .sched-type.lab { background: #e8f0fb; color: #2c5fbd; }
+
+  /* Announcements card */
+  .ann-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px; font-weight: 600;
+  }
+
+  .ann-header svg { width: 17px; height: 17px; color: var(--accent); }
+
+  .ann-item {
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 10px;
+    align-items: flex-start;
+  }
+
+  .ann-item:last-of-type { border-bottom: none; }
+
+  .ann-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 5px;
+  }
+
+  .ann-dot.red { background: #ef4444; }
+  .ann-dot.orange { background: #f59e0b; }
+  .ann-dot.green { background: var(--green-500); }
+
+  .ann-title { font-size: 13.5px; font-weight: 500; margin-bottom: 2px; }
+  .ann-date { font-size: 11.5px; color: var(--muted); }
+
+  .ann-footer {
+    padding: 12px 20px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .ann-footer a {
+    font-size: 13px; color: var(--accent); font-weight: 500;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+  }
+
+  .ann-footer a:hover { text-decoration: underline; }
+  .ann-footer a svg { width: 14px; height: 14px; }
+
+  /* Quick actions */
+  .quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+
+  .quick-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s;
+    text-align: center;
+  }
+
+  .quick-card:hover { border-color: var(--green-400); box-shadow: 0 2px 8px rgba(46,130,54,.1); }
+
+  .quick-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .quick-icon svg { width: 22px; height: 22px; }
+
+  .quick-icon.green { background: var(--badge-green-bg); }
+  .quick-icon.green svg { color: var(--accent); }
+  .quick-icon.blue { background: #e8f0fb; }
+  .quick-icon.blue svg { color: #2c5fbd; }
+  .quick-icon.orange { background: #fff3e0; }
+  .quick-icon.orange svg { color: #d97706; }
+  .quick-icon.purple { background: #f3e8ff; }
+  .quick-icon.purple svg { color: #7c3aed; }
+
+  .quick-label { font-size: 13px; font-weight: 500; color: var(--text); }
+
+  /* ═══════════════════════════════════
+     PAGE A – ACCOUNT/PROFILE
+  ═══════════════════════════════════ */
+  .profile-banner {
+    height: 110px;
+    background: linear-gradient(135deg, #1a3d1e 0%, #2e8236 60%, #3a9e44 100%);
+    border-radius: var(--radius) var(--radius) 0 0;
+    position: relative;
+  }
+
+  .profile-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .profile-body {
+    padding: 0 28px 28px;
+    position: relative;
+  }
+
+  .profile-avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-top: -40px;
+    margin-bottom: 12px;
+  }
+
+  .profile-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--green-100);
+    border: 4px solid #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 700;
+    color: var(--green-700);
+    letter-spacing: 1px;
+  }
+
+  .avatar-cam {
+    position: absolute; bottom: 2px; right: 2px;
+    width: 22px; height: 22px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+
+  .avatar-cam svg { width: 12px; height: 12px; color: var(--muted); }
+
+  .profile-name-row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+
+  .profile-name { font-size: 20px; font-weight: 700; margin-bottom: 3px; }
+  .profile-sub { font-size: 13.5px; color: var(--muted); }
+
+  .edit-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px; font-weight: 500;
+    font-family: inherit;
+    cursor: pointer; color: var(--text);
+    transition: border-color .15s;
+    margin-top: 4px;
+  }
+
+  .edit-btn:hover { border-color: var(--green-400); color: var(--accent); }
+  .edit-btn svg { width: 15px; height: 15px; }
+
+  .profile-details-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .detail-section-title {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .detail-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .detail-item svg { width: 16px; height: 16px; color: var(--accent); margin-top: 2px; flex-shrink: 0; }
+
+  .detail-item .detail-val { font-size: 14px; font-weight: 500; }
+
+  .acad-field { margin-bottom: 16px; }
+  .acad-field .field-label { font-size: 12px; color: var(--muted); margin-bottom: 3px; }
+  .acad-field .field-val { font-size: 14px; font-weight: 600; }
+
+  .enrolled-badge {
+    display: inline-block;
+    background: var(--badge-green-bg);
+    color: var(--badge-green-text);
+    font-size: 12px; font-weight: 600;
+    padding: 3px 12px; border-radius: 20px;
+  }
+
+  /* ═══════════════════════════════════
      PAGE 1 – REGISTRATION
   ═══════════════════════════════════ */
   .reg-layout { display: grid; grid-template-columns: 1fr 280px; gap: 20px; }
@@ -321,7 +606,6 @@
 
   .add-subject-btn:hover { border-color: var(--green-400); color: var(--accent); }
 
-  /* Summary sidebar */
   .summary-card { padding: 20px; }
   .summary-card h2 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
 
@@ -415,17 +699,9 @@
     border-left: 3px solid;
   }
 
-  .class-card.lecture {
-    background: #e8f4e9; border-left-color: var(--green-500);
-  }
-
-  .class-card.lab {
-    background: #e8f0fb; border-left-color: #4a82d8;
-  }
-
-  .class-card.pe {
-    background: #fff7e6; border-left-color: #d97706;
-  }
+  .class-card.lecture { background: #e8f4e9; border-left-color: var(--green-500); }
+  .class-card.lab { background: #e8f0fb; border-left-color: #4a82d8; }
+  .class-card.pe { background: #fff7e6; border-left-color: #d97706; }
 
   .class-card .time { font-size: 11px; color: var(--muted); margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
   .class-card .time svg { width: 12px; height: 12px; }
@@ -447,10 +723,7 @@
   /* ═══════════════════════════════════
      PAGE 3 – COURSES
   ═══════════════════════════════════ */
-  .courses-header-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 18px;
-  }
+  .courses-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
 
   .dl-btn {
     display: flex; align-items: center; gap: 7px;
@@ -493,22 +766,14 @@
   }
 
   .course-code { font-size: 18px; font-weight: 700; color: #fff; }
-
   .course-body { padding: 14px; background: #fff; }
   .course-body .course-title { font-size: 13.5px; font-weight: 500; margin-bottom: 10px; line-height: 1.4; }
-
   .course-meta { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
   .course-meta span { display: block; margin-bottom: 2px; }
   .course-meta .meta-label { font-size: 11px; }
-
   .progress-bar-wrap { height: 5px; background: var(--green-100); border-radius: 3px; margin-bottom: 14px; }
   .progress-bar-fill { height: 100%; background: var(--green-500); border-radius: 3px; }
-
-  .progress-label {
-    display: flex; justify-content: space-between;
-    font-size: 11.5px; color: var(--muted); margin-bottom: 6px;
-  }
-
+  .progress-label { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--muted); margin-bottom: 6px; }
   .course-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .btn-syllabus {
@@ -552,7 +817,6 @@
   }
 
   .curriculum-banner svg.big { width: 28px; height: 28px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
-
   .curriculum-banner h3 { font-size: 14.5px; font-weight: 600; margin-bottom: 4px; }
   .curriculum-banner p { font-size: 13px; color: var(--muted); }
   .curriculum-banner a { font-size: 13px; color: var(--accent); font-weight: 500; text-decoration: none; margin-top: 8px; display: inline-flex; align-items: center; gap: 4px; }
@@ -562,68 +826,26 @@
   /* ═══════════════════════════════════
      PAGE 4 – GRADES
   ═══════════════════════════════════ */
-  .grades-header-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px;
-  }
-
+  .grades-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .sem-block { margin-bottom: 22px; }
-
-  .sem-block-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .sem-block-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); }
   .sem-block-header h2 { font-size: 14.5px; font-weight: 600; }
-
-  .gwa-badge {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 500; color: var(--badge-green-text);
-  }
-
+  .gwa-badge { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--badge-green-text); }
   .gwa-badge span { font-weight: 700; font-size: 14px; }
-
   .grades-table { width: 100%; border-collapse: collapse; }
-
-  .grades-table thead tr {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .grades-table th {
-    text-align: left; font-size: 12px; font-weight: 500;
-    color: var(--muted); padding: 10px 20px;
-    text-transform: uppercase; letter-spacing: .5px;
-  }
-
-  .grades-table td {
-    padding: 13px 20px;
-    font-size: 13.5px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .grades-table thead tr { border-bottom: 1px solid var(--border); }
+  .grades-table th { text-align: left; font-size: 12px; font-weight: 500; color: var(--muted); padding: 10px 20px; text-transform: uppercase; letter-spacing: .5px; }
+  .grades-table td { padding: 13px 20px; font-size: 13.5px; border-bottom: 1px solid var(--border); }
   .grades-table tr:last-child td { border-bottom: none; }
-
   .grades-table .bold { font-weight: 600; }
-
-  .grade-pill {
-    display: inline-block;
-    padding: 3px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-  }
-
+  .grade-pill { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
   .grade-pill.passed { background: var(--badge-green-bg); color: var(--badge-green-text); }
   .grade-pill.inc { background: var(--badge-orange-bg); color: var(--badge-orange-text); }
 
   /* ═══════════════════════════════════
      PAGE 5 – APPOINTMENTS
   ═══════════════════════════════════ */
-  .appt-header-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px;
-  }
+  .appt-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 
   .book-btn {
     display: flex; align-items: center; gap: 7px;
@@ -642,46 +864,23 @@
   .book-btn:hover { background: var(--green-700); }
   .book-btn svg { width: 16px; height: 16px; }
 
-  .appt-section-title {
-    font-size: 14px; font-weight: 600;
-    padding: 16px 20px 12px;
-    border-bottom: 1px solid var(--border);
-  }
+  .appt-section-title { font-size: 14px; font-weight: 600; padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
 
-  .appt-item {
-    padding: 18px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 16px;
-  }
-
+  .appt-item { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   .appt-item:last-child { border-bottom: none; }
-
   .appt-left { flex: 1; }
-
   .appt-status-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 
-  .status-pill {
-    font-size: 11.5px; font-weight: 600;
-    padding: 3px 10px; border-radius: 20px;
-  }
-
+  .status-pill { font-size: 11.5px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
   .status-pill.confirmed { background: var(--badge-green-bg); color: var(--badge-green-text); }
   .status-pill.pending { background: var(--badge-orange-bg); color: var(--badge-orange-text); }
 
   .apt-code { font-size: 12px; color: var(--muted); font-weight: 500; }
-
   .appt-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
   .appt-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-
   .appt-details { display: flex; gap: 16px; flex-wrap: wrap; }
-  .appt-details span {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 12.5px; color: var(--muted);
-  }
-
+  .appt-details span { display: flex; align-items: center; gap: 5px; font-size: 12.5px; color: var(--muted); }
   .appt-details svg { width: 14px; height: 14px; }
-
   .appt-actions { display: flex; flex-direction: column; gap: 7px; align-items: flex-end; }
 
   .btn-details {
@@ -717,7 +916,6 @@
   .btn-cancel:hover { background: #fff5f5; }
   .btn-details svg, .btn-cancel svg { width: 14px; height: 14px; }
 
-  /* help button */
   .help-fab {
     position: fixed; bottom: 24px; right: 24px;
     width: 38px; height: 38px;
@@ -739,8 +937,8 @@
 <!-- ═══ SIDEBAR ═══ -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 3L2 8l10 5 10-5-10-5zM2 16l10 5 10-5M2 12l10 5 10-5"/></svg>
+    <div class="logo-icon" style="background:transparent;padding:0;overflow:hidden;">
+      <img src="data:image/png;base64,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" style="width:36px;height:36px;object-fit:cover;border-radius:8px;display:block;"/>
     </div>
     <div class="logo-text">
       <div class="school">CVSU TANZA</div>
@@ -748,7 +946,15 @@
     </div>
   </div>
 
-  
+  <button class="nav-link" onclick="showPage('dashboard')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Dashboard
+  </button>
+
+  <button class="nav-link" onclick="showPage('profile')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Account/Profile
+  </button>
 
   <button class="nav-link" onclick="showPage('registration')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
@@ -777,14 +983,14 @@
 
   <div class="sidebar-spacer"></div>
 
-<button class="nav-link logout" onclick="window.location.href='pages/login.html'">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-    <polyline points="16 17 21 12 16 7"/>
-    <line x1="21" y1="12" x2="9" y2="12"/>
-  </svg>
-  Log Out
-</button>
+  <button class="nav-link logout" onclick="window.location.href='pages/login.html'">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+      <polyline points="16 17 21 12 16 7"/>
+      <line x1="21" y1="12" x2="9" y2="12"/>
+    </svg>
+    Log Out
+  </button>
 </aside>
 
 <!-- ═══ MAIN ═══ -->
@@ -801,14 +1007,199 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
       <div class="notif-dot"></div>
     </div>
-    <div class="avatar">JD</div>
+    <div class="avatar" onclick="showPage('profile')" style="cursor:pointer">JD</div>
   </header>
 
   <!-- CONTENT -->
   <div class="content">
 
+    <!-- ══════════════════════ PAGE: DASHBOARD ══════════════════════ -->
+    <div id="page-dashboard" class="page active">
+
+      <!-- Welcome Banner -->
+      <div class="welcome-banner">
+        <h2>Welcome back, JD!</h2>
+        <p>You are currently enrolled in BS Information Technology, 3rd Year. Have a great day ahead!</p>
+      </div>
+
+      <!-- Today's Schedule + Announcements -->
+      <div class="dashboard-grid">
+        <!-- Today's Schedule -->
+        <div class="card">
+          <div class="schedule-card-header">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Today's Schedule
+            </h3>
+            <span class="day-badge">Monday</span>
+          </div>
+
+          <div class="sched-item">
+            <div class="sched-time">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              08:00 AM - 10:00 AM
+            </div>
+            <div class="sched-info">
+              <div class="sched-subj">ITEC 50 - Web Development</div>
+              <div class="sched-meta">Comp Lab 1 &nbsp;·&nbsp; <span class="sched-type lab">Laboratory</span></div>
+            </div>
+          </div>
+
+          <div class="sched-item">
+            <div class="sched-time">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              10:30 AM - 12:00 PM
+            </div>
+            <div class="sched-info">
+              <div class="sched-subj">GNED 04 - Mathematics</div>
+              <div class="sched-meta">Room 302 &nbsp;·&nbsp; <span class="sched-type lec">Lecture</span></div>
+            </div>
+          </div>
+
+          <div class="sched-item">
+            <div class="sched-time">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              01:00 PM - 04:00 PM
+            </div>
+            <div class="sched-info">
+              <div class="sched-subj">ITEC 50 - Web Development</div>
+              <div class="sched-meta">Comp Lab 1 &nbsp;·&nbsp; <span class="sched-type lab">Laboratory</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="card">
+          <div class="ann-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Announcements
+          </div>
+          <div class="ann-item">
+            <div class="ann-dot red"></div>
+            <div>
+              <div class="ann-title">Midterm Examination Schedule</div>
+              <div class="ann-date">Oct 15, 2023</div>
+            </div>
+          </div>
+          <div class="ann-item">
+            <div class="ann-dot orange"></div>
+            <div>
+              <div class="ann-title">Enrollment for 2nd Semester</div>
+              <div class="ann-date">Oct 12, 2023</div>
+            </div>
+          </div>
+          <div class="ann-item">
+            <div class="ann-dot green"></div>
+            <div>
+              <div class="ann-title">Campus Holiday Notice</div>
+              <div class="ann-date">Oct 10, 2023</div>
+            </div>
+          </div>
+          <div class="ann-footer">
+            <a href="#">View all announcements <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <div class="quick-card" onclick="showPage('grades')">
+          <div class="quick-icon green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="quick-label">View Grades</div>
+        </div>
+        <div class="quick-card" onclick="showPage('appointments')">
+          <div class="quick-icon blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="quick-label">Clearance</div>
+        </div>
+        <div class="quick-card" onclick="showPage('registration')">
+          <div class="quick-icon orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
+          </div>
+          <div class="quick-label">Registration</div>
+        </div>
+        <div class="quick-card" onclick="showPage('schedule')">
+          <div class="quick-icon purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div class="quick-label">Full Schedule</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ PAGE: ACCOUNT/PROFILE ══════════════════════ -->
+    <div id="page-profile" class="page">
+      <div class="page-header">
+        <h1>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Student Profile
+        </h1>
+        <p>Manage your personal information</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-banner"></div>
+        <div class="profile-body">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar">JD</div>
+            <div class="avatar-cam">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+          </div>
+
+          <div class="profile-name-row">
+            <div>
+              <div class="profile-name">Juan Dela Cruz</div>
+              <div class="profile-sub">2021-12345 &nbsp;•&nbsp; BS Information Technology</div>
+            </div>
+            <button class="edit-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Details
+            </button>
+          </div>
+
+          <div class="profile-details-grid">
+            <div>
+              <div class="detail-section-title">Contact Information</div>
+              <div class="detail-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <div class="detail-val">juan.delacruz@cvsu.edu.ph</div>
+              </div>
+              <div class="detail-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006.29 6.29l1.42-1.42a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                <div class="detail-val">+63 912 345 6789</div>
+              </div>
+              <div class="detail-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div class="detail-val">Blk 1 Lot 2, Tanza, Cavite, Philippines</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="detail-section-title">Academic Details</div>
+              <div class="acad-field">
+                <div class="field-label">Campus</div>
+                <div class="field-val">CvSU Tanza Campus</div>
+              </div>
+              <div class="acad-field">
+                <div class="field-label">Year Level</div>
+                <div class="field-val">3rd Year - Regular</div>
+              </div>
+              <div class="acad-field">
+                <div class="field-label">Enrollment Status</div>
+                <div class="field-val"><span class="enrolled-badge">Enrolled</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ══════════════════════ PAGE: REGISTRATION ══════════════════════ -->
-    <div id="page-registration" class="page active">
+    <div id="page-registration" class="page">
       <div class="page-header">
         <h1>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
@@ -830,72 +1221,12 @@
           </div>
 
           <div class="subject-list">
-            <div class="subject-row">
-              <input type="checkbox" checked/>
-              <div class="subject-info">
-                <div class="code">ITEC 60</div>
-                <div class="name">Mobile Application Development</div>
-              </div>
-              <div class="subject-units">
-                <div class="units">3 Units</div>
-                <div class="type">Lec/Lab</div>
-              </div>
-            </div>
-            <div class="subject-row">
-              <input type="checkbox" checked/>
-              <div class="subject-info">
-                <div class="code">ITEC 65</div>
-                <div class="name">Cloud Computing</div>
-              </div>
-              <div class="subject-units">
-                <div class="units">3 Units</div>
-                <div class="type">Lec/Lab</div>
-              </div>
-            </div>
-            <div class="subject-row">
-              <input type="checkbox" checked/>
-              <div class="subject-info">
-                <div class="code">ITEC 70</div>
-                <div class="name">Capstone Project 1</div>
-              </div>
-              <div class="subject-units">
-                <div class="units">3 Units</div>
-                <div class="type">Lec/Lab</div>
-              </div>
-            </div>
-            <div class="subject-row">
-              <input type="checkbox" checked/>
-              <div class="subject-info">
-                <div class="code">GNED 05</div>
-                <div class="name">Purposive Communication</div>
-              </div>
-              <div class="subject-units">
-                <div class="units">3 Units</div>
-                <div class="type">Lec</div>
-              </div>
-            </div>
-            <div class="subject-row">
-              <input type="checkbox" checked/>
-              <div class="subject-info">
-                <div class="code">GNED 08</div>
-                <div class="name">Understanding the Self</div>
-              </div>
-              <div class="subject-units">
-                <div class="units">3 Units</div>
-                <div class="type">Lec</div>
-              </div>
-            </div>
-            <div class="subject-row">
-              <input type="checkbox" checked/>
-              <div class="subject-info">
-                <div class="code">CVSU 101</div>
-                <div class="name">Institutional Requirement</div>
-              </div>
-              <div class="subject-units">
-                <div class="units">3 Units</div>
-                <div class="type">Lec</div>
-              </div>
-            </div>
+            <div class="subject-row"><input type="checkbox" checked/><div class="subject-info"><div class="code">ITEC 60</div><div class="name">Mobile Application Development</div></div><div class="subject-units"><div class="units">3 Units</div><div class="type">Lec/Lab</div></div></div>
+            <div class="subject-row"><input type="checkbox" checked/><div class="subject-info"><div class="code">ITEC 65</div><div class="name">Cloud Computing</div></div><div class="subject-units"><div class="units">3 Units</div><div class="type">Lec/Lab</div></div></div>
+            <div class="subject-row"><input type="checkbox" checked/><div class="subject-info"><div class="code">ITEC 70</div><div class="name">Capstone Project 1</div></div><div class="subject-units"><div class="units">3 Units</div><div class="type">Lec/Lab</div></div></div>
+            <div class="subject-row"><input type="checkbox" checked/><div class="subject-info"><div class="code">GNED 05</div><div class="name">Purposive Communication</div></div><div class="subject-units"><div class="units">3 Units</div><div class="type">Lec</div></div></div>
+            <div class="subject-row"><input type="checkbox" checked/><div class="subject-info"><div class="code">GNED 08</div><div class="name">Understanding the Self</div></div><div class="subject-units"><div class="units">3 Units</div><div class="type">Lec</div></div></div>
+            <div class="subject-row"><input type="checkbox" checked/><div class="subject-info"><div class="code">CVSU 101</div><div class="name">Institutional Requirement</div></div><div class="subject-units"><div class="units">3 Units</div><div class="type">Lec</div></div></div>
           </div>
 
           <button class="add-subject-btn">
@@ -904,7 +1235,6 @@
           </button>
         </div>
 
-        <!-- Summary -->
         <div>
           <div class="card summary-card">
             <h2>Registration Summary</h2>
@@ -943,86 +1273,51 @@
 
       <div class="card" style="padding:18px 20px 16px;">
         <div class="sched-grid">
-          <!-- MON -->
           <div class="day-col">
             <h3>Monday</h3>
             <div class="class-card lab">
               <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 08:00 AM – 10:00 AM</div>
-              <div class="code">ITEC 50</div>
-              <div class="subj-name">Web Systems</div>
-              <div class="meta">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 1</span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. A. Santos</span>
-              </div>
+              <div class="code">ITEC 50</div><div class="subj-name">Web Systems</div>
+              <div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 1</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. A. Santos</span></div>
             </div>
             <div class="class-card lab">
               <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 01:00 PM – 04:00 PM</div>
-              <div class="code">ITEC 50</div>
-              <div class="subj-name">Web Systems</div>
-              <div class="meta">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 1</span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. A. Santos</span>
-              </div>
+              <div class="code">ITEC 50</div><div class="subj-name">Web Systems</div>
+              <div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 1</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. A. Santos</span></div>
             </div>
           </div>
-
-          <!-- TUE -->
           <div class="day-col">
             <h3>Tuesday</h3>
             <div class="class-card lecture">
               <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 09:00 AM – 12:00 PM</div>
-              <div class="code">ITEC 55</div>
-              <div class="subj-name">Information Assurance</div>
-              <div class="meta">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Room 304</span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Engr. B. Reyes</span>
-              </div>
+              <div class="code">ITEC 55</div><div class="subj-name">Information Assurance</div>
+              <div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Room 304</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Engr. B. Reyes</span></div>
             </div>
           </div>
-
-          <!-- WED -->
           <div class="day-col">
             <h3>Wednesday</h3>
             <div class="class-card lecture">
               <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 08:00 AM – 10:00 AM</div>
-              <div class="code">GNED 04</div>
-              <div class="subj-name">Mathematics in Modern World</div>
-              <div class="meta">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Room 201</span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Dr. C. Cruz</span>
-              </div>
+              <div class="code">GNED 04</div><div class="subj-name">Mathematics in Modern World</div>
+              <div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Room 201</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Dr. C. Cruz</span></div>
             </div>
           </div>
-
-          <!-- THU -->
           <div class="day-col">
             <h3>Thursday</h3>
             <div class="class-card lab">
               <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 01:00 PM – 04:00 PM</div>
-              <div class="code">DCIT 25</div>
-              <div class="subj-name">Data Structures</div>
-              <div class="meta">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 2</span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. D. Lim</span>
-              </div>
+              <div class="code">DCIT 25</div><div class="subj-name">Data Structures</div>
+              <div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Comp Lab 2</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Prof. D. Lim</span></div>
             </div>
           </div>
-
-          <!-- FRI -->
           <div class="day-col">
             <h3>Friday</h3>
             <div class="class-card pe">
               <div class="time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 10:00 AM – 12:00 PM</div>
-              <div class="code">FITT 03</div>
-              <div class="subj-name">Individual/Dual Sports</div>
-              <div class="meta">
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Gymnasium</span>
-                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Coach E. Ramos</span>
-              </div>
+              <div class="code">FITT 03</div><div class="subj-name">Individual/Dual Sports</div>
+              <div class="meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> Gymnasium</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Coach E. Ramos</span></div>
             </div>
           </div>
-
-          <!-- SAT -->
           <div class="day-col">
             <h3>Saturday</h3>
             <div class="no-class">No classes</div>
@@ -1054,116 +1349,11 @@
       </div>
 
       <div class="courses-grid" style="margin-top:20px;">
-        <!-- ITEC 50 -->
-        <div class="course-card">
-          <div class="course-banner">
-            <span class="course-units-badge">3 Units</span>
-            <div class="course-code">ITEC 50</div>
-          </div>
-          <div class="course-body">
-            <div class="course-title">Web Systems and Technologies</div>
-            <div class="course-meta">
-              <span class="meta-label">Instructor</span>
-              <span>Prof. A. Santos</span>
-            </div>
-            <div class="progress-label"><span>Course Progress</span><span>65%</span></div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:65%"></div></div>
-            <div class="course-actions">
-              <button class="btn-syllabus">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Syllabus
-              </button>
-              <button class="btn-lms">
-                LMS
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ITEC 55 -->
-        <div class="course-card">
-          <div class="course-banner">
-            <span class="course-units-badge">3 Units</span>
-            <div class="course-code">ITEC 55</div>
-          </div>
-          <div class="course-body">
-            <div class="course-title">Information Assurance and Security</div>
-            <div class="course-meta">
-              <span class="meta-label">Instructor</span>
-              <span>Engr. B. Reyes</span>
-            </div>
-            <div class="progress-label"><span>Course Progress</span><span>40%</span></div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:40%"></div></div>
-            <div class="course-actions">
-              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
-              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- DCIT 25 -->
-        <div class="course-card">
-          <div class="course-banner">
-            <span class="course-units-badge">3 Units</span>
-            <div class="course-code">DCIT 25</div>
-          </div>
-          <div class="course-body">
-            <div class="course-title">Data Structures and Algorithms</div>
-            <div class="course-meta">
-              <span class="meta-label">Instructor</span>
-              <span>Prof. D. Lim</span>
-            </div>
-            <div class="progress-label"><span>Course Progress</span><span>80%</span></div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:80%"></div></div>
-            <div class="course-actions">
-              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
-              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- GNED 04 -->
-        <div class="course-card">
-          <div class="course-banner">
-            <span class="course-units-badge">3 Units</span>
-            <div class="course-code">GNED 04</div>
-          </div>
-          <div class="course-body">
-            <div class="course-title">Mathematics in the Modern World</div>
-            <div class="course-meta">
-              <span class="meta-label">Instructor</span>
-              <span>Dr. C. Cruz</span>
-            </div>
-            <div class="progress-label"><span>Course Progress</span><span>100%</span></div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%"></div></div>
-            <div class="course-actions">
-              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
-              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
-            </div>
-          </div>
-        </div>
-
-        <!-- FITT 03 -->
-        <div class="course-card">
-          <div class="course-banner">
-            <span class="course-units-badge">2 Units</span>
-            <div class="course-code">FITT 03</div>
-          </div>
-          <div class="course-body">
-            <div class="course-title">Physical Activities towards Health and Fitness</div>
-            <div class="course-meta">
-              <span class="meta-label">Instructor</span>
-              <span>Coach E. Ramos</span>
-            </div>
-            <div class="progress-label"><span>Course Progress</span><span>50%</span></div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:50%"></div></div>
-            <div class="course-actions">
-              <button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button>
-              <button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>
-            </div>
-          </div>
-        </div>
+        <div class="course-card"><div class="course-banner"><span class="course-units-badge">3 Units</span><div class="course-code">ITEC 50</div></div><div class="course-body"><div class="course-title">Web Systems and Technologies</div><div class="course-meta"><span class="meta-label">Instructor</span><span>Prof. A. Santos</span></div><div class="progress-label"><span>Course Progress</span><span>65%</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:65%"></div></div><div class="course-actions"><button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button><button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button></div></div></div>
+        <div class="course-card"><div class="course-banner"><span class="course-units-badge">3 Units</span><div class="course-code">ITEC 55</div></div><div class="course-body"><div class="course-title">Information Assurance and Security</div><div class="course-meta"><span class="meta-label">Instructor</span><span>Engr. B. Reyes</span></div><div class="progress-label"><span>Course Progress</span><span>40%</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:40%"></div></div><div class="course-actions"><button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button><button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button></div></div></div>
+        <div class="course-card"><div class="course-banner"><span class="course-units-badge">3 Units</span><div class="course-code">DCIT 25</div></div><div class="course-body"><div class="course-title">Data Structures and Algorithms</div><div class="course-meta"><span class="meta-label">Instructor</span><span>Prof. D. Lim</span></div><div class="progress-label"><span>Course Progress</span><span>80%</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:80%"></div></div><div class="course-actions"><button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button><button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button></div></div></div>
+        <div class="course-card"><div class="course-banner"><span class="course-units-badge">3 Units</span><div class="course-code">GNED 04</div></div><div class="course-body"><div class="course-title">Mathematics in the Modern World</div><div class="course-meta"><span class="meta-label">Instructor</span><span>Dr. C. Cruz</span></div><div class="progress-label"><span>Course Progress</span><span>100%</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%"></div></div><div class="course-actions"><button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button><button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button></div></div></div>
+        <div class="course-card"><div class="course-banner"><span class="course-units-badge">2 Units</span><div class="course-code">FITT 03</div></div><div class="course-body"><div class="course-title">Physical Activities towards Health and Fitness</div><div class="course-meta"><span class="meta-label">Instructor</span><span>Coach E. Ramos</span></div><div class="progress-label"><span>Course Progress</span><span>50%</span></div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:50%"></div></div><div class="course-actions"><button class="btn-syllabus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Syllabus</button><button class="btn-lms">LMS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button></div></div></div>
       </div>
 
       <div class="curriculum-banner">
@@ -1192,22 +1382,13 @@
         </button>
       </div>
 
-      <!-- Semester 1 -->
       <div class="card sem-block" style="margin-top:20px;">
         <div class="sem-block-header">
           <h2>First Semester, A.Y. 2023-2024</h2>
           <div class="gwa-badge">GWA: <span>1.25</span></div>
         </div>
         <table class="grades-table">
-          <thead>
-            <tr>
-              <th>Course Code</th>
-              <th>Description</th>
-              <th>Units</th>
-              <th>Grade</th>
-              <th>Remarks</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Course Code</th><th>Description</th><th>Units</th><th>Grade</th><th>Remarks</th></tr></thead>
           <tbody>
             <tr><td class="bold">ITEC 50</td><td>Web Systems and Technologies</td><td>3.0</td><td class="bold">1.25</td><td><span class="grade-pill passed">Passed</span></td></tr>
             <tr><td class="bold">ITEC 55</td><td>Information Assurance and Security</td><td>3.0</td><td class="bold">1.50</td><td><span class="grade-pill passed">Passed</span></td></tr>
@@ -1217,22 +1398,13 @@
         </table>
       </div>
 
-      <!-- Semester 2 -->
       <div class="card sem-block">
         <div class="sem-block-header">
           <h2>Second Semester, A.Y. 2022-2023</h2>
           <div class="gwa-badge">GWA: <span>1.45</span></div>
         </div>
         <table class="grades-table">
-          <thead>
-            <tr>
-              <th>Course Code</th>
-              <th>Description</th>
-              <th>Units</th>
-              <th>Grade</th>
-              <th>Remarks</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Course Code</th><th>Description</th><th>Units</th><th>Grade</th><th>Remarks</th></tr></thead>
           <tbody>
             <tr><td class="bold">ITEC 50</td><td>Programming 2</td><td>3.0</td><td class="bold">1.50</td><td><span class="grade-pill passed">Passed</span></td></tr>
             <tr><td class="bold">GNED 01</td><td>Art Appreciation</td><td>3.0</td><td class="bold">1.25</td><td><span class="grade-pill passed">Passed</span></td></tr>
@@ -1260,67 +1432,35 @@
 
       <div class="card" style="margin-top:20px;">
         <div class="appt-section-title">Upcoming Appointments</div>
-
         <div class="appt-item">
           <div class="appt-left">
-            <div class="appt-status-row">
-              <span class="status-pill confirmed">Confirmed</span>
-              <span class="apt-code">APT-001</span>
-            </div>
+            <div class="appt-status-row"><span class="status-pill confirmed">Confirmed</span><span class="apt-code">APT-001</span></div>
             <div class="appt-title">University Registrar</div>
             <div class="appt-subtitle">Claiming of Transcript of Records</div>
             <div class="appt-details">
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                Oct 15, 2023
-              </span>
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                10:00 AM – 11:00 AM
-              </span>
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Admin Building, Window 3
-              </span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Oct 15, 2023</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10:00 AM – 11:00 AM</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Admin Building, Window 3</span>
             </div>
           </div>
           <div class="appt-actions">
-            <button class="btn-details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Details
-            </button>
+            <button class="btn-details"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Details</button>
             <button class="btn-cancel">Cancel</button>
           </div>
         </div>
-
         <div class="appt-item">
           <div class="appt-left">
-            <div class="appt-status-row">
-              <span class="status-pill pending">Pending</span>
-              <span class="apt-code">APT-002</span>
-            </div>
+            <div class="appt-status-row"><span class="status-pill pending">Pending</span><span class="apt-code">APT-002</span></div>
             <div class="appt-title">University Clinic</div>
             <div class="appt-subtitle">Medical Clearance Validation</div>
             <div class="appt-details">
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                Oct 18, 2023
-              </span>
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                01:30 PM – 02:00 PM
-              </span>
-              <span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Student Services Building, 1st Floor
-              </span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Oct 18, 2023</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>01:30 PM – 02:00 PM</span>
+              <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Student Services Building, 1st Floor</span>
             </div>
           </div>
           <div class="appt-actions">
-            <button class="btn-details">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Details
-            </button>
+            <button class="btn-details"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Details</button>
             <button class="btn-cancel">Cancel</button>
           </div>
         </div>
@@ -1329,9 +1469,7 @@
 
   </div><!-- /content -->
 </div><!-- /main -->
-<div>
 
-</div>
 <button class="help-fab" title="Help">?</button>
 
 <script>
@@ -1340,11 +1478,15 @@
     document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
     document.querySelectorAll('.nav-link').forEach(n => {
-      if (n.textContent.trim().toLowerCase() === name) n.classList.add('active');
+      const text = n.textContent.trim().toLowerCase().replace(/\//g, '').replace(/\s+/g, '');
+      const target = name.toLowerCase().replace(/\//g, '').replace(/\s+/g, '');
+      if (text === target || n.textContent.trim().toLowerCase() === name) {
+        n.classList.add('active');
+      }
     });
   }
 
-  // Set initial active nav
+  // Set initial active nav (Dashboard)
   document.querySelector('.nav-link').classList.add('active');
 </script>
 </body>

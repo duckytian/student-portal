@@ -3,182 +3,214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Account Activation – CvSU Tanza</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Arial', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-     background: url('../../images/campus.png') center center / cover no-repeat fixed;
-      position: relative;
-    }
-
-   
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(26, 74, 46, 0.65); /* Green with 65% transparency */
-      z-index: 0;
-    }
-
-    .activation-container {
-      position: relative;
-      z-index: 1;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 30px 35px;
-      border-radius: 20px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-      width: 450px;
-      max-width: 90%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .activation-container h2 {
-      margin-bottom: 5px;
-      color: #1a4a2e;
-      font-size: 1.6rem;
-      text-align: center;
-    }
-
-    .activation-container p {
-      font-size: 14px;
-      color: #4e6e5c;
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    form label {
-      display: block;
-      margin-top: 12px;
-      font-weight: bold;
-      font-size: 12px;
-      color: #2b533f;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    form input, form select {
-      width: 100%;
-      padding: 10px 12px;
-      margin-top: 5px;
-      border: 1.5px solid #d0e2d7;
-      border-radius: 10px;
-      font-size: 14px;
-      transition: all 0.2s;
-      background: white;
-    }
-
-    form input:focus, form select:focus {
-      border-color: #2d6a44;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(45, 106, 68, 0.1);
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      margin-top: 25px;
-    }
-
-    button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 40px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
-
-    button.cancel {
-      background: rgba(200, 200, 200, 0.5);
-      color: #4e6e5c;
-      border: 1px solid #c5d8cd;
-    }
-
-    button.cancel:hover {
-      background: rgba(200, 200, 200, 0.7);
-      transform: translateY(-2px);
-    }
-
-    button.activate {
-      background: linear-gradient(135deg, #2d6a44, #1a4a2e);
-      color: white;
-      box-shadow: 0 4px 12px rgba(26, 74, 46, 0.3);
-    }
-
-    button.activate:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(26, 74, 46, 0.4);
-    }
-
-    /* Responsive */
-    @media (max-width: 500px) {
-      .activation-container {
-        padding: 20px;
-      }
-      .buttons {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-  </style>
+  <title>Student Account Activation | CvSU Tanza</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<style>
+  :root {
+  --green-dark: #1a4a2e;
+  --green-mid: #2d6a44;
+  --green-light: #3d8b5e;
+  --green-soft: #5cb885;
+  --green-glass: rgba(26, 74, 46, 0.65);
+  --white-glass: rgba(255, 255, 255, 0.92);
+  --white: #ffffff;
+  --off-white: #f4f7f5;
+  --text-dark: #1d392a;
+  --text-soft: #4e6e5c;
+  --gold: #d4a017;
+  --shadow-card: 0 32px 80px rgba(0, 0, 0, 0.45);
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --radius-card: 28px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--off-white);
+  display: flex;
+   background: url('../../images/campus.png') center center / cover no-repeat fixed;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.activation-container {
+  background-color: var(--green-glass);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activation-card {
+  background-color: var(--white-glass);
+  padding: 40px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  max-width: 700px;
+  width: 90%;
+}
+
+.activation-header h1 {
+  font-family: var(--font-serif);
+  color: var(--green-dark);
+  margin-bottom: 5px;
+}
+
+.activation-header p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 5px;
+}
+
+input, select {
+  padding: 12px;
+  border: 1px solid var(--green-light);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: var(--green-soft);
+  box-shadow: 0 0 0 3px rgba(92, 184, 133, 0.3);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.cancel {
+  background-color: var(--off-white);
+  color: var(--text-soft);
+  border: 1px solid var(--green-light);
+}
+
+button.cancel:hover {
+  background-color: #e0e0e0;
+}
+
+button.activate {
+  background-color: var(--green-mid);
+  color: var(--white);
+}
+
+button.activate:hover {
+  background-color: var(--green-light);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+</style>
 <body>
-  <div class="activation-container">
-    <h2>Student Account Activation</h2>
-    <p>Verify your enrollment to activate your portal account.</p>
+  <section class="activation-container">
+    <div class="activation-card">
+      <div class="activation-header">
+        <h1>Student Account Activation</h1>
+        <p>Verify your enrollment to activate your portal account.</p>
+      </div>
 
-    <form>
-      <label for="student-number">Student Number</label>
-      <input type="text" id="student-number" placeholder="20XXXXXXXX" required>
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="student-number">Student Number</label>
+            <input type="text" id="student-number" placeholder="20XXXXXXXX" required>
+          </div>
 
-      <label for="program">Program / Course</label>
-      <select id="program" required>
-        <option value="">Select your program...</option>
-        <option value="BSIT">BS Information Technology</option>
-        <option value="BSCS">BS Computer Science</option>
-        <option value="BSE">BS Secondary Education</option>
-        <option value="BEED">BS Elementary Education</option>
-        <option value="BSBA">BS Business Administration</option>
-      </select>
+          <div class="form-group">
+            <label for="program">Program / Course</label>
+            <select id="program" required>
+              <option value="">Select your program...</option>
+              <option value="BSIT">BS Information Technology</option>
+              <option value="BSCS">BS Computer Science</option>
+              <option value="BSE">BS Secondary Education</option>
+              <option value="BEED">BS Elementary Education</option>
+              <option value="BSBA">BS Business Administration</option>
+            </select>
+          </div>
+        </div>
 
-      <label for="first-name">First Name</label>
-      <input type="text" id="first-name" placeholder="e.g., Juan" required>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" placeholder="e.g., Juan" required>
+          </div>
 
-      <label for="last-name">Last Name</label>
-      <input type="text" id="last-name" placeholder="e.g., Dela Cruz" required>
+          <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" placeholder="e.g., Dela Cruz" required>
+          </div>
+        </div>
 
-      <label for="middle-name">Middle Name</label>
-      <input type="text" id="middle-name" placeholder="e.g., Reyes (Leave blank if none)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="middle-name">Middle Name</label>
+            <input type="text" id="middle-name" placeholder="e.g., Reyes (Leave blank if none)">
+          </div>
 
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" required>
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required>
+          </div>
+        </div>
 
-      <label for="email">CvSU Email Address</label>
-      <input type="email" id="email" placeholder="e.g., juan.delacruz@cvsu.edu.ph" required>
+        <div class="form-group full-width">
+          <label for="email">CvSU Email Address</label>
+          <input type="email" id="email" placeholder="e.g., juan.delacruz@cvsu.edu.ph" required>
+        </div>
 
-      <div class="buttons">
-       <button type="button" class="cancel" onclick="window.location.href='../login.html'">
-  Cancel</button>
-        <button type="submit" class="activate">Activate Account</button>
-    
-  </div>
+        <div class="form-buttons">
+          <button type="button" class="cancel" onclick="window.location.href='../login.html'">Cancel</button>
+          <button type="submit" class="activate" onclick="window.location.href='./successfully.html'">Activate Account</button>
+        </div>
+      </form>
+    </div>
+  </section>
 </body>
 </html>

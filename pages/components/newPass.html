@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set New Password | CvSU Tanza Student Portal</title>
+  <style>
+    :root {
+  --green-dark: #1a4a2e;
+  --green-mid: #2d6a44;
+  --green-light: #3d8b5e;
+  --green-soft: #5cb885;
+  --green-glass: rgba(26, 74, 46, 0.65);
+  --white-glass: rgba(255, 255, 255, 0.92);
+  --white: #ffffff;
+  --off-white: #f4f7f5;
+  --text-dark: #1d392a;
+  --text-soft: #4e6e5c;
+  --gold: #d4a017;
+  --shadow-card: 0 32px 80px rgba(0, 0, 0, 0.45);
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --radius-card: 28px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--off-white);
+  color: var(--text-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   background: url('../../images/campus.png') center center / cover no-repeat fixed;
+  height: 100vh;
+  margin: 0;
+}
+
+.password-container {
+  background-color: var(--green-glass);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.password-card {
+  background-color: var(--white-glass);
+  padding: 40px;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+}
+
+.password-card h1 {
+  font-family: var(--font-serif);
+  color: var(--green-dark);
+  margin-bottom: 10px;
+}
+
+.password-card p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+input {
+  padding: 12px;
+  border: 1px solid var(--green-light);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--green-soft);
+  box-shadow: 0 0 0 3px rgba(92, 184, 133, 0.3);
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  text-align: left;
+}
+
+button {
+  background-color: var(--green-mid);
+  color: var(--white);
+  border: none;  
+  margin-top: 20px;
+  padding: 13px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--green-light);
+}
+</style>
+</head>
+<body>
+  <section class="password-container">
+    <div class="password-card">
+      <h1>Set Your New Password</h1>
+      <p>For your security, please replace your temporary password with a new, secure password before accessing your CvSU Tanza Student Portal.</p>
+
+      <form>
+        <label for="current">Current (Temporary) Password</label>
+        <input type="password" id="current" placeholder="Enter the password sent to your email">
+
+        <label for="new">New Password</label>
+        <input type="password" id="new" placeholder="Create a strong password">
+
+        <label for="confirm">Confirm New Password</label>
+        <input type="password" id="confirm" placeholder="Re-enter your new password">
+
+        <small>Must be 8+ characters, including an uppercase letter, lowercase letter, number, and symbol.</small>
+
+      </form>
+<button type="submit" onclick="window.location.href='../../index.html'">
+  Update Password & Enter Portal
+</button>
+    </div>
+  </section>
+</body>
+</html>
